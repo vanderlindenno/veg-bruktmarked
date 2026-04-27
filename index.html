@@ -467,7 +467,11 @@ når påmelding åpener.
   </a>
 </footer>
 
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+  <div id="lightbox" aria-hidden="true">
+  <img id="lightbox-img" alt="">
+</div>
+
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -544,6 +548,27 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => {
       alert("Noe gikk galt. Prøv igjen.");
     });
+  });
+});
+</script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  document.querySelectorAll(".gallery img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.style.display = "flex";
+      document.body.style.overflow = "hidden"; // voorkomt scroll op mobiel
+    });
+  });
+
+  lightbox.addEventListener("click", () => {
+    lightbox.style.display = "none";
+    document.body.style.overflow = "";
   });
 });
 </script>
