@@ -369,41 +369,38 @@ footer {
     height: 100%;
     border: 0;
   }
-/* ✅ Volle breedte voor formulier 'Andre spørsmål?' */
-.faq-item form {
+/* ✅ Formulier in "Andre spørsmål?" moet GEEN flex zijn */
+.faq-item .faq-answer form {
   width: 100%;
 }
 
-.faq-item form input,
-.faq-item form textarea,
-.faq-item form button {
+/* 👇 DIT IS DE SLEUTEL */
+.faq-item .faq-answer:has(form) {
+  display: block;
+}
+
+/* Velden volle breedte */
+.faq-item .faq-answer input,
+.faq-item .faq-answer textarea {
   width: 100%;
   box-sizing: border-box;
 }
 
-.faq-item form button {
-  max-width: 220px;      /* knop niet overdreven breed */
+.faq-item .faq-answer button {
+  margin-top: 0.5rem;
 }
 
-/* ✅ Override flex-layout alleen voor formulieren */
-.faq-item form {
+.faq-form-answer {
   display: block;
 }
-.faq-item form label {
-  font-weight: 600;
-}
 
-.faq-item form input,
-.faq-item form textarea {
-  padding: 0.55rem;
-  margin-top: 0.25rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.faq-form-answer form,
+.faq-form-answer input,
+.faq-form-answer textarea {
+  width: 100%;
+  box-sizing: border-box;
 }
-
-.faq-item form textarea {
-  min-height: 140px;
-}  
+  
 </style>
 <script type="application/ld+json">
 {
@@ -740,7 +737,7 @@ når påmelding åpener.
     ❓ Andere spørsmål?
    <span>＋</span>
     </div>
-    <div class="faq-answer">
+    <div class="faq-answer faq-form-answer">
 <form
   action="https://formspree.io/f/xlgakdjv" 
   method="POST" 
