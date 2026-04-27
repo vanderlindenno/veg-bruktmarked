@@ -508,31 +508,39 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-document.getElementById("faq-form").addEventListener("submit", function (e) {
-  e.preventDefault(); // blokkeert elke vorm van reload
+document.addEventListener("DOMContentLoaded", () => {
+  const faqForm = document.getElementById("faq-form");
+  if (!faqForm) return;
 
-  const form = e.target;
+  const fields = document.getElementById("faq-form-fields");
+  const intro = document.getElementById("faq-form-intro");
+  const confirmation = document.getElementById("faq-confirmation-message");
 
-  fetch("https://formspree.io/f/xlgakdjv", {
-    method: "POST",
-    body: new FormData(form),
-    headers: { "Accept": "application/json" }
-  })
-  .then(() => {
-    // ALTIJD verbergen
-    document.getElementById("faq-form-intro").style.display = "none";
-    document.getElementById("faq-form-fields").style.display = "none";
+  faqForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    // Alleen bevestiging tonen
-    document.getElementById("faq-confirmation-message").style.display = "block";
-  })
-  .catch(() => {
-    alert("Noe gikk galt. Vennligst prøv igjen.");
+    fetch(faqForm.action, {
+      method: "POST",
+      body: new FormData(faqForm),
+      headers: { "Accept": "application/json" }
+    })
+    .then(res => {
+      if (res.ok) {
+        if (fields) fields.style.display = "none";
+        if (intro) intro.style.display = "none";
+        confirmation.style.display = "block";
+        faqForm.reset();
+      } else {
+        alert("Noe gikk galt. Prøv igjen.");
+      }
+    })
+    .catch(() => {
+      alert("Nettverksfeil. Prøv senere.");
+    });
   });
-
-  return false;
 });
 </script>
+``
   
 </body>
 </html>
