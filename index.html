@@ -408,7 +408,7 @@ når påmelding åpener.
       🤔 Andre spørsmål? (besøkende + utstiller)
       <span>＋</span>
     </div>
-    <div class="faq-answer faq-form-answer">
+    <div class="faq-answer faq-form-answer" id="faq-form-wrapper">
       <p class="faq-form-intro">
         Finner du ikke svar her, kan du kontakte oss via skjemaet nedenfor.
       </p>
@@ -518,8 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("faq-form");
   if (!form) return;
 
-  const intro = document.getElementById("faq-form-intro");
-  const fields = document.getElementById("faq-form-fields");
+  const wrapper = document.getElementById("faq-form-wrapper");
   const confirmation = document.getElementById("faq-confirmation-message");
 
   form.addEventListener("submit", (e) => {
@@ -530,19 +529,18 @@ document.addEventListener("DOMContentLoaded", () => {
       body: new FormData(form),
       headers: { Accept: "application/json" }
     })
-    .then(response => {
-      if (!response.ok) throw new Error();
+    .then(res => {
+      if (!res.ok) throw new Error();
 
-      // ✅ verberg introductietekst
-      if (intro) intro.style.display = "none";
+      // ✅ alles verbergen
+      wrapper.querySelectorAll("*").forEach(el => {
+        if (el !== confirmation) {
+          el.style.display = "none";
+        }
+      });
 
-      // ✅ verberg formulier
-      if (fields) fields.style.display = "none";
-
-      // ✅ toon bevestiging
+      // ✅ bevestiging tonen
       confirmation.style.display = "block";
-
-      form.reset();
     })
     .catch(() => {
       alert("Noe gikk galt. Prøv igjen.");
@@ -550,6 +548,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
   
 </body>
 </html>
