@@ -400,6 +400,16 @@ footer {
   width: 100%;
   box-sizing: border-box;
 }
+
+.faq-form-answer {
+  display: block;
+}
+
+.faq-form-answer input,
+.faq-form-answer textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
   
 </style>
 <script type="application/ld+json">
@@ -733,7 +743,7 @@ når påmelding åpener.
   </div>
 
   <div class="faq-item">
-    <div class="faq-question">
+    <div class="faq-answer faq-form-answer">
     ❓ Andere spørsmål?
    <span>＋</span>
     </div>
@@ -774,28 +784,29 @@ når påmelding åpener.
 </form>
 
 <script>
-  function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
+function handleSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
 
-    fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        document.getElementById('form-fields').style.display = 'none';
-        document.getElementById('confirmation-message').style.display = 'block';
-        form.reset();
-      } else {
-        alert('Noe gikk galt. Vennligst prøv igjen senere.');
-      }
-    }).catch(() => {
-      alert('Nettverksfeil. Sjekk internettforbindelsen din.');
-    });
-  }
+  const fields = form.querySelector('#faq-form-fields');
+  const confirmation = form.querySelector('#confirmation-message-faq');
+
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      fields.style.display = 'none';
+      confirmation.style.display = 'block';
+      form.reset();
+    } else {
+      alert('Noe gikk galt. Vennligst prøv igjen senere.');
+    }
+  }).catch(() => {
+    alert('Nettverksfeil. Sjekk internettforbindelsen.');
+  });
+}
 </script>
    </div>
   </div>
@@ -845,126 +856,7 @@ All relevant informasjon vil bli sendt via SMS med påmelding. Vennligst les mel
     webdesign og utvikling
   </a>
 </footer>
-  
-<!-- ✅ SVG CHAT KNOPPEN  -->
-<div class="chat-buttons">
 
-  <a class="chat-btn whatsapp"
-     href="https://wa.me/4794505716"
-     aria-label="WhatsApp">
-    <img src="wa.png" alt="WhatsApp">
-  </a>
-
-  <a class="chat-btn sms"
-     href="sms:+4794505716"
-     aria-label="SMS">
-    <img src="sms.png" alt="SMS">
-  </a>
-  
-<a class="chat-btn call"
-   href="tel:+4794505716"
-   aria-label="Bellen">
-  <img src="phone.png" alt="Ring">
-</a>
-
-</div>
-
-<div class="lightbox" id="lightbox">
-  <span class="lb-close" id="lbClose">✕</span>
-  <span class="lb-prev" id="lbPrev">❮</span>
-  <img id="lbImage">
-  <span class="lb-next" id="lbNext">❯</span>
-</div>
-
-<script>
-document.querySelectorAll('.faq-question').forEach(q=>{
-  q.onclick=()=>q.parentElement.classList.toggle('open');
-});
-
-const READY_TEMP=70, WARM_TEMP=40, MAX_AGE_MIN=15;
-
-function updateSauna(){
- fetch(`badstua.json?ts=${Date.now()}`)
-  .then(r=>r.json())
-  .then(d=>{
-    const t=d.temperature, h=d.humidity;
-    const u=new Date(d.updated);
-    const age=(Date.now()-u)/60000;
-
-    const state=document.getElementById('saunaState');
-    const values=document.getElementById('saunaValues');
-    const upd=document.getElementById('updated');
-
-    let txt,icon,cls;
-    if(t>=READY_TEMP){txt="Badstuen er på tempratur nå :";icon="🔥";cls="sauna-ready";}
-    else if(t>=WARM_TEMP){txt="Badstuen varmes opp nå :";icon="🟡";cls="sauna-warm";}
-    else{txt="Badstuen er kald nå :";icon="❄️";cls="sauna-cold";}
-
-    state.textContent=txt;
-    state.className=`sauna-state ${cls}`;
-    values.innerHTML=`${icon} ${t.toFixed(1).replace('.',',')} °C – 💧 ${h} % luftfuktighet`;
-    upd.textContent=`Sist oppdatert: ${u.toLocaleString('no-NO')}`;
-
-    if(age>MAX_AGE_MIN){
-      state.textContent="⚠️ Data er eldre enn 15 minutter";
-      values.textContent="";
-    }
-  });
-}
-
-updateSauna();
-setInterval(updateSauna,300000);
-
-document.addEventListener('DOMContentLoaded',()=>{
- const imgs=[...document.querySelectorAll('.gallery img')];
- const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImage');
- let i=0;
- function show(n){i=(n+imgs.length)%imgs.length;lbImg.src=imgs[i].src;}
- imgs.forEach((img,idx)=>img.onclick=()=>{show(idx);lb.classList.add('open');});
- lbClose.onclick=()=>lb.classList.remove('open');
- lbPrev.onclick=()=>show(i-1);
- lbNext.onclick=()=>show(i+1);
- lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open');};
- document.addEventListener('keydown',e=>{
-  if(!lb.classList.contains('open'))return;
-  if(e.key==='Escape')lb.classList.remove('open');
-  if(e.key==='ArrowRight')show(i+1);
-  if(e.key==='ArrowLeft')show(i-1);
- });
- let startX=0;
- lb.addEventListener('touchstart',e=>startX=e.changedTouches[0].screenX,{passive:true});
- lb.addEventListener('touchend',e=>{
-  const d=e.changedTouches[0].screenX-startX;
-  if(Math.abs(d)>50) d<0?show(i+1):show(i-1);
- });
-});
-
-/* ================================
-   🚧 MAINTENANCE POPUP – 
-   ================================ */
-
-const MAINTENANCE_MODE = true; // true = popup AAN, false = UIT
-
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('maintenanceModal');
-  const closeBtn = document.getElementById('maintenanceClose');
-
-  if (MAINTENANCE_MODE) {
-    modal.classList.add('open');
-  }
-
-  closeBtn.onclick = () => {
-    modal.classList.remove('open');
-  };
-
-  modal.onclick = e => {
-    if (e.target === modal) {
-      modal.classList.remove('open');
-    }
-  };
-});
-  
-</script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 <script>
