@@ -409,43 +409,41 @@ når påmelding åpener.
       <span>＋</span>
     </div>
     <div class="faq-answer faq-form-answer" id="faq-form-wrapper">
-      <p class="faq-form-intro">
-        Finner du ikke svar her, kan du kontakte oss via skjemaet nedenfor.
-      </p>
 
-      
+  <p id="faq-form-intro" class="faq-form-intro">
+    Finner du ikke svar her, kan du kontakte oss via skjemaet nedenfor.
+  </p>
 
-<p id="faq-form-intro" class="faq-form-intro">
-  Finner du ikke svar her, kan du kontakte oss via skjemaet nedenfor.
-</p>
+  <form id="faq-form"
+        action="https://formspree.io/f/xlgakdjv"
+        method="POST">
 
-<form id="faq-form"
-      action="https://formspree.io/f/xlgakdjv"
-      method="POST">
+    <div id="faq-form-fields">
+      <label>
+        Navn<br>
+        <input type="text" name="navn" required>
+      </label><br><br>
 
-  <div id="faq-form-fields">
-    <label>
-      Navn<br>
-      <input type="text" name="navn" required>
-    </label><br><br>
+      <label>
+        E‑post<br>
+        <input type="email" name="email" required>
+      </label><br><br>
 
-    <label>
-      E‑post<br>
-      <input type="email" name="email" required>
-    </label><br><br>
+      <label>
+        Spørsmål<br>
+        <textarea name="sporsmal" rows="5" required></textarea>
+      </label><br><br>
 
-    <label>
-      Spørsmål<br>
-      <textarea name="sporsmal" rows="5" required></textarea>
-    </label><br><br>
+      <button type="submit">Send</button>
+    </div>
 
-    <button type="submit">Send</button>
-  </div>
+    <div id="faq-confirmation-message" style="display:none;">
+      ✅ Takk for henvendelsen. Vi tar kontakt.
+    </div>
+  </form>
 
-  <div id="faq-confirmation-message" style="display:none;">
-    ✅ Takk for henvendelsen. Vi tar kontakt.
-  </div>
-</form>
+</div>
+
 
 
       
