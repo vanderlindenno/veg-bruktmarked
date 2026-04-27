@@ -742,34 +742,41 @@ når påmelding åpener.
     ❓ Andre spørsmål?
     <span>＋</span>
   </div>
-  <div class="faq-answer faq-form-answer"
 
-<form
-  action="https://formspree.io/f/xlgakdjv" 
-  method="POST" 
-  onsubmit="handleSubmit(event)"
->
-  <div id="form-fields">
-    <label>
-      Navn<br />
-      <input type="text" name="navn" required />
-    </label>
-    <br /><br />
+  <div class="faq-answer faq-form-answer">
+    <form
+      action="https://formspree.io/f/xlgakdjv"
+      method="POST"
+      onsubmit="handleSubmit(event)"
+    >
+      <div id="form-fields">
+        <label>
+          Navn<br>
+          <input type="text" name="navn" required>
+        </label>
+        <br><br>
 
-    <label>
-      E-post<br />
-      <input type="email" name="email" required />
-    </label>
-    <br /><br />
+        <label>
+          E-post<br>
+          <input type="email" name="email" required>
+        </label>
+        <br><br>
 
-    <label>
-      Spørsmål<br />
-      <textarea name="sporsmal" rows="5" required></textarea>
-    </label>
-    <br /><br />
+        <label>
+          Spørsmål<br>
+          <textarea name="sporsmal" rows="5" required></textarea>
+        </label>
+        <br><br>
 
-    <button type="submit">Send</button>
+        <button type="submit">Send</button>
+      </div>
+
+      <div id="confirmation-message" style="display:none;">
+        ✅ Takk for meldingen!
+      </div>
+    </form>
   </div>
+</div>
 
   <div id="confirmation-message" style="display:none;">
     <p>
