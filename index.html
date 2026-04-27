@@ -369,7 +369,41 @@ footer {
     height: 100%;
     border: 0;
   }
+/* ✅ Volle breedte voor formulier 'Andre spørsmål?' */
+.faq-item form {
+  width: 100%;
+}
 
+.faq-item form input,
+.faq-item form textarea,
+.faq-item form button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.faq-item form button {
+  max-width: 220px;      /* knop niet overdreven breed */
+}
+
+/* ✅ Override flex-layout alleen voor formulieren */
+.faq-item form {
+  display: block;
+}
+.faq-item form label {
+  font-weight: 600;
+}
+
+.faq-item form input,
+.faq-item form textarea {
+  padding: 0.55rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.faq-item form textarea {
+  min-height: 140px;
+}  
 </style>
 <script type="application/ld+json">
 {
