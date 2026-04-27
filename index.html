@@ -516,7 +516,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("faq-form");
   if (!form) return;
 
-  const wrapper = document.getElementById("faq-form-wrapper");
+  const intro = document.getElementById("faq-form-intro");
+  const fields = document.getElementById("faq-form-fields");
   const confirmation = document.getElementById("faq-confirmation-message");
 
   form.addEventListener("submit", (e) => {
@@ -530,15 +531,14 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => {
       if (!res.ok) throw new Error();
 
-      // ✅ alles verbergen
-      wrapper.querySelectorAll("*").forEach(el => {
-        if (el !== confirmation) {
-          el.style.display = "none";
-        }
-      });
+      // ✅ exact wat moet verdwijnen
+      intro.style.display = "none";
+      fields.style.display = "none";
 
-      // ✅ bevestiging tonen
+      // ✅ exact wat zichtbaar moet blijven
       confirmation.style.display = "block";
+
+      form.reset();
     })
     .catch(() => {
       alert("Noe gikk galt. Prøv igjen.");
@@ -546,7 +546,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
   
 </body>
 </html>
