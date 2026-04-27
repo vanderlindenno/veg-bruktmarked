@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruktmarked Vegårshei | Kjøp og salg lokalt</title>
+<meta name="description" content="Bruktmarked i Vegårshei for kjøp og salg av brukte varer. Finn gode tilbud, selg det du ikke lenger trenger og bidra til gjenbruk lokalt.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.bruktmarked-vegårshei.no/">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">  
+<style>
+:root{
+  --primary:#1e3a8a;
+  --bg:#FFFF00;
+  --card:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:#333;
+}
+
+header{
+  background:var(--primary);
+  color:#FFFF00;
+  text-align:center;
+  padding:2.5rem 1rem;
+}
+
+main{
+  max-width:820px;
+  margin:auto;
+  padding:1rem;
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:1.5rem;
+  margin-bottom:1rem;
+  box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+
+h2{
+  margin-top:0;
+  color:var(--primary);
+}
+
+.status{
+  font-size:1.4rem;
+  font-weight:700;
+}
+
+.meta{
+  margin-top:.4rem;
+  font-size:.9rem;
+  color:#555;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+@media (max-width:600px){
+  .gallery{grid-template-columns:repeat(2,1fr);}
+}
+.gallery img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  border-radius:8px;
+  cursor:pointer;
+  background:#e5e7eb;
+}
+
+/* MAP */
+iframe{
+  width:100%;
+  height:320px;
+  border:0;
+  border-radius:10px;
+}
+
+/* MOBILE */
+.mobile{display:none}
+.desktop{display:inline}
+@media (max-width:768px){
+  .mobile{display:inline}
+  .desktop{display:none}
+}
+
+/* CHAT BUTTONS – ALLEEN MOBIEL, SVG */
+.chat-buttons{
+  position:fixed;
+  bottom:20px;
+  right:15px;
+  display:none;
+  flex-direction:column;
+  gap:12px;
+  z-index:1000;
+}
+@media (max-width:768px),
+       (hover: none) and (pointer: coarse) {
+  .chat-buttons{
+    display:flex;
+  }
+}
+
+.chat-btn{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  overflow:hidden;   /* 🔑 DIT WAS DE MISSENDE SLEUTEL */
+}
+
+.chat-btn img{
+  width:56px;
+  height:56px;
+  object-fit:contain;
+  display:block;
+}
+
+.chat-btn.sms {
+  background:#0b5ed7;
+  order: 1;
+}
+.chat-btn.whatsapp {
+  background:#0b5ed7;
+  order: 2;
+}
+.chat-btn.call {
+  background:#0b5ed7;
+  order: 3;
+}
+  
+@keyframes contact-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(11, 94, 215, .6); }
+  70% { box-shadow: 0 0 0 14px rgba(11, 94, 215, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(11, 94, 215, 0); }
+}
+
+.chat-btn.sms{
+  animation: contact-pulse 2.2s infinite;
+}
+
+/* FAQ (ORIGINEEL) */
+.faq-item{
+  border-bottom:1px solid #e5e7eb;
+  padding:.8rem 0;
+}
+.faq-question{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-weight:600;
+}
+.faq-question span{
+  font-size:1.4rem;
+  transition:transform .2s ease;
+}
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .25s ease;
+  color:#555;
+  font-size:.95rem;
+  margin-top:.4rem;
+}
+.faq-item.open .faq-answer{max-height:500px}
+.faq-item.open .faq-question span{transform:rotate(45deg)}
+
+footer{
+  text-align:center;
+  padding:1rem;
+  color:#777;
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.lightbox.open{display:flex}
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:10px;
+}
+.lb-close,.lb-prev,.lb-next{
+  position:absolute;
+  color:#fff;
+  font-size:2.4rem;
+  cursor:pointer;
+  user-select:none;
+}
+.lb-close{top:16px;right:20px}
+.lb-prev{left:20px;top:50%;transform:translateY(-50%)}
+.lb-next{right:20px;top:50%;transform:translateY(-50%)}
+
+/* Badstueklima – standaard / vet */
+.sauna-state{
+  font-size:1.1rem;
+  font-weight:400;   /* normaal */
+  margin:.3rem 0 .1rem;
+}
+
+.sauna-values{
+  font-size:1.15rem;
+  font-weight:700;   /* VET */
+  margin-bottom:.35rem;
+}
+
+.sauna-updated{
+  font-size:.85rem;
+  color:#6b7280;
+}
+
+.sauna-cold{color:#1e40af;}
+.sauna-warm{color:#b45309;}
+.sauna-ready{color:#b91c1c;}
+
+footer {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.footer-separator {
+  margin: 0 6px;
+  color: #999;
+}
+
+.footer-link {
+  color: inherit;                    /* zelfde kleur als footer */
+  font-family: inherit;              /* zelfde lettertype */
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor; /* constant subtiel zichtbaar */
+  display: inline-block;             /* nodig voor scale */
+  transition: transform 0.15s ease;  /* soepele animatie */
+}
+
+.footer-link:hover {
+  transform: scale(1.08);             /* iets groter bij hover */
+}
+
+/* 🚧 MAINTENANCE MODAL */
+.maintenance-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+}
+
+.maintenance-modal.open{
+  display:flex;
+}
+
+.maintenance-box{
+  background:#fff;
+  max-width:420px;
+  margin:1rem;
+  padding:1.8rem 1.6rem;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  animation:modalFadeIn .25s ease;
+}
+
+.maintenance-box h2{
+  color:#b91c1c;
+  margin-top:0;
+}
+
+.maintenance-box p{
+  margin:.6rem 0;
+  color:#333;
+}
+
+.maintenance-muted{
+  font-size:.9rem;
+  color:#666;
+}
+
+.maintenance-box button{
+  margin-top:1.2rem;
+  padding:.6rem 1.2rem;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+@keyframes modalFadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}  
+
+
+
+.faq-answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.faq-image {
+  width: 200px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .faq-answer {
+    flex-direction: column;
+  }
+
+  .faq-image {
+    width: 100%;
+  }
+}
+
+/* SEO-tekst: normale tekstflow, geen kolommen */
+.seo-text {
+  display: block;
+}
+.seo-text p {
+  margin-bottom: 0.9rem;
+} 
+/* SEO-tekst: geen hoogtebeperking */
+.faq-item.open .faq-answer.seo-text {
+  max-height: none;
+}
+
+ .map-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 verhouding */
+  }
+
+  .map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+</style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="e5cf3d8b-e123-4ec1-af5a-0b68585fccf7"></script>  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Vegårstue",
+  "image": "https://raw.githubusercontent.com/vanderlindenno/fjordsauna/refs/heads/main/sauna.png",
+  "description": "Privat vedfyrt badstue i Vegårshei",
+  "telephone": "+4794505716",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Fjordbygdveien 930",
+    "addressLocality": "Vegårshei",
+    "addressCountry": "NO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "58.794745",
+    "longitude": "8.791226"
+  },
+  "priceRange": "500 NOK per time"
+}
+  
+</script>  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Må jeg ha på badetøy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Det bestemmer du helt selv. Det viktigste er at du føler deg komfortabel og avslappet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Er det dusj?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, det finnes en kaldtvannsdusj bak badstuen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hva må jeg ta med?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Håndkle er påkrevd. Drikkevann og badesandaler anbefales."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hvor mange er det plass til?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Badstuen har plass til opptil seks personer. Best komfort oppnås med fire til fem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Er det parkering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, du kan parkere til venstre for garasjen. Alternativt kan du parkere ved småbåthavnen og gå opp."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hva er avbestillingsvilkårene?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Gratis avbestilling inntil 24 timer før avtalt tidspunkt."
+      }
+    }
+  ]
+}
+</script>  
+</head>
+
+<body>
+
+<header>
+  <h1>Bruktmarked på Vegårshei</h1>
+  <p>Brukte varer, nye muligheter</p>
+</header>
+
+<main>
+
+<div class="card">
+  <h2>⭐ Om bruktmarked Vegårshei</h2>
+
+<p>Bruktmarked Vegårshei har vært arrangert siden 2017 og har etablert seg som et fast og populært bruktmarked.</p>
+
+<p>Markedet arrangeres to ganger i året, én gang om våren og én gang om høsten, og finner sted innendørs i Vegårsheihallen.</p>
+
+<p>Hver markedsdag samler rundt 100 stands med et bredt utvalg av brukte varer, håndlagde produkter og gjenbruksskatter.</p>
+
+<p>Arrangementet har gratis inngang og parkering, og det tilbys kiosk med enkel servering.</p>
+
+<p>Over årene har bruktmarkedet tiltrukket seg mange besøkende og blitt et viktig samlingspunkt for kjøp, salg og gjenbruk.</p>
+
+</div>
+
+<div class="card">
+  <h2>ℹ️ Praktisk informasjon</h2>
+
+<p>
+    <strong>Tidspunkt:</strong><br>
+   Bruktmarkedet arrangeres på en lørdag og er åpent fra kl. 10.00 til kl. 15.00.
+  </p>
+
+  <p>
+    <strong>Sted:</strong><br>
+    Arrangementet holdes innendørs i Vegårsheihallen.
+  </p>
+
+  <p>
+    <strong>Inngang:</strong><br>
+    Gratis inngang for alle besøkende.
+  </p>
+
+  <p>
+    <strong>Parkering:</strong><br>
+    Gratis parkering i tilknytning til hallen.
+  </p>
+
+  <p>
+    <strong>Stands og utvalg:</strong><br>
+    Markedet har rundt 100 stands med et variert utvalg av brukte varer og håndlagde produkter, 
+    blant annet klær, møbler, interiør, leker og småting.
+  </p>
+
+  <p>
+    <strong>Servering:</strong><br>
+    Det er kiosk på området med salg av enkel mat og drikke, betaling med Vipps og/eller kontanter.
+  </p>
+
+  <p>
+    <strong>Betaling:</strong><br>
+    De fleste standholdere tar Vipps og/eller kontanter. Dette kan variere fra stand til stand.
+  </p>
+
+
+</div>
+
+<div class="card">
+  <h2>🖼️ Bilder</h2>
+  <div class="gallery">
+    <img src="vegårshei-badstue-01.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+    <img src="vegårshei-badstue-02.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+    <img src="vegårshei-badstue-03.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+    <img src="vegårshei-badstue-04.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+    <img src="vegårshei-badstue-05.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+    <img src="vegårshei-badstue-06.jpg" loading="lazy" decoding="async" alt="Vegårshei badstue">
+  </div>
+</div>
+
+
+ <div class="card">
+  <h2>📝 Påmelding for standholdere</h2>
+  
+<p>
+Påmelding åpner omtrent to måneder før bruktmarkedet arrangeres.
+Da sendes det ut en SMS som varsler om at påmeldingen er åpnet.
+</p>
+
+<p>
+Påmelding skjer ved å svare på SMS‑en, og plassen bekreftes når
+betalingen for standen er mottatt. Vi anbefaler å svare raskt,
+da markedet ofte er fullbooket allerede få dager etter at SMS‑en
+er sendt ut.
+</p>
+
+<p>
+Har du tidligere mottatt SMS fra oss, vil du automatisk få ny SMS med neste bruktmarked.
+</p>
+
+<p>
+Nedenfor kan du melde deg på for å motta SMS
+når påmelding åpener.
+</p>
+
+
+  <div id="form-success"
+       style="display:none; color:green; font-weight:600;">
+    ✅ Takk! Du er nå meldt på og vil motta SMS når påmeldingen åpner.
+  </div>
+
+  <form id="sms-form"
+        action="https://formspree.io/f/mzdyqpzk"
+        method="POST">
+
+    <div id="form-fields">
+
+      <label for="navn"><strong>Navn</strong></label><br>
+      <input
+        type="text"
+        id="navn"
+        name="navn"
+        placeholder="Ditt navn"
+        required
+        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
+      >
+
+      <label for="bosted"><strong>Bosted</strong></label><br>
+      <input
+        type="text"
+        id="bosted"
+        name="bosted"
+        placeholder="By / sted"
+        required
+        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
+      >
+
+      <label for="telefon"><strong>Telefonnummer</strong></label><br>
+      <input
+        type="tel"
+        id="telefon"
+        name="telefon"
+        placeholder="123 45 678"
+        required
+        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
+      >
+
+      <input type="hidden"
+             name="_subject"
+             value="Ny SMS‑påmelding – Bruktmarked Vegårshei">
+
+      <input type="text"
+             name="_gotcha"
+             style="display:none">
+
+      <button type="submit"
+              style="
+                background:var(--primary);
+                color:#fff;
+                border:none;
+                padding:.6rem 1.4rem;
+                border-radius:8px;
+                cursor:pointer;">
+        Send
+      </button>
+
+    </div>
+  </form>
+</div>
+
+</div>
+
+<div class="card">
+  <h2>📅 Neste bruktmarked</h2>
+  <p><strong>lørdag 24. oktober 2026</strong></p>
+</div>
+
+
+<div class="card">
+  <h2>📍 Lokasjon</h2>
+<div class="map-container">
+  <iframe
+    src="https://www.google.com/maps?q=Vegårsheihallen&z=13&output=embed"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+  <p class="adres">
+    Vegårsheihallen. Molandsveien 40, 4985 Vegårshei, Aust-Agder <br>
+  </p>
+</div>
+
+
+<div class="card">
+  <h2>❓ Ofte stilte spørsmål</h2>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      👍 Er bruktmarked Vegårshei på Facebook?
+      <span>＋</span>
+    </div>
+    <div class="faq-answer">
+      Ja det er vi !<a href="https://www.facebook.com/BruktmarkedVegarshei">Du kan finne oss ved å trykke her</a>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      🏪 Hvar stort er en stand?
+      <span>＋</span>
+    </div>
+    <div class="faq-answer">
+     Én stand er omtrent 2,5 meter.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      🎒 Hva må jeg ta med?
+      <span>＋</span>
+    </div>
+    <div class="faq-answer">
+      ✅ Håndkle (påkrevd)<br>
+      💧 Drikkevann anbefales<br>
+      🩴 Badesandaler/flip-flops anbefales
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      🌊 Kan jeg bade i fjorden?
+      <span>＋</span>
+    </div>
+    <div class="faq-answer">
+      Ja, absolutt, det går helt fint 😊. Det er fullt mulig å bade i fjorden,
+      men vær oppmerksom på at det er et lite stykke å gå fra badstuen før du
+      kommer helt ned til vannet. Det anbefales spesielt å ta et fjordbad etter
+      at dere er ferdige med badstuesesjonen.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      👥 Hvor mange er det plass til?
+      <span>＋</span>
+    </div>
+    <div class="faq-answer">
+      Det er plass til opptil 6 gjester, men den beste komforten oppnås med 4–5 personer.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+    ❓ Andere spørsmål?
+   <span>＋</span>
+    </div>
+    <div class="faq-answer">
+<form
+  action="https://formspree.io/f/xlgakdjv" 
+  method="POST" 
+  onsubmit="handleSubmit(event)"
+>
+  <div id="form-fields">
+    <label>
+      Navn<br />
+      <input type="text" name="navn" required />
+    </label>
+    <br /><br />
+
+    <label>
+      E-post<br />
+      <input type="email" name="email" required />
+    </label>
+    <br /><br />
+
+    <label>
+      Spørsmål<br />
+      <textarea name="sporsmal" rows="5" required></textarea>
+    </label>
+    <br /><br />
+
+    <button type="submit">Send</button>
+  </div>
+
+  <div id="confirmation-message" style="display:none;">
+    <p>
+      ✅ Takk for meldingen!<br />
+      Meldingen er sendt, og vi tar kontakt med deg så snart som mulig.
+    </p>
+  </div>
+</form>
+
+<script>
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        document.getElementById('form-fields').style.display = 'none';
+        document.getElementById('confirmation-message').style.display = 'block';
+        form.reset();
+      } else {
+        alert('Noe gikk galt. Vennligst prøv igjen senere.');
+      }
+    }).catch(() => {
+      alert('Nettverksfeil. Sjekk internettforbindelsen din.');
+    });
+  }
+</script>
+   </div>
+  </div>
+  
+   <div class="faq-item">
+    <div class="faq-question">
+      🅿️ Parkering
+      <span>+</span>
+    </div>
+    <div class="faq-answer">
+      Når du ankommer, kan du parkere til venstre for garasjen. 
+      Det er også mulig å parkere ved småbåthavnen og ta en kort tur opp.
+      
+      <img src="parkering.jpg" alt="Parkering" class="faq-image">
+    </div>
+  </div>
+  
+<div class="card faq-item">
+  <div class="faq-question">
+    ℹ️ Informasjon til standholdere.
+    <span>＋</span>
+  </div>
+  <div class="faq-answer seo-text">
+    
+<p>
+All relevant informasjon vil bli sendt via SMS med påmelding. Vennligst les meldingen nøye.
+</p>
+
+
+  </div>
+</div>
+
+
+  
+</div>
+
+</main>
+
+<footer>
+  © 2026 Bruktmarked Vegårshei
+  <span class="footer-separator">•</span>
+  <a
+    href="https://vanderlindenno.github.io/fjordsauna/webdesign.html"
+    class="footer-link"
+    title="Les mer om webdesign"
+  >
+    webdesign og utvikling
+  </a>
+</footer>
+  
+<!-- ✅ SVG CHAT KNOPPEN  -->
+<div class="chat-buttons">
+
+  <a class="chat-btn whatsapp"
+     href="https://wa.me/4794505716"
+     aria-label="WhatsApp">
+    <img src="wa.png" alt="WhatsApp">
+  </a>
+
+  <a class="chat-btn sms"
+     href="sms:+4794505716"
+     aria-label="SMS">
+    <img src="sms.png" alt="SMS">
+  </a>
+  
+<a class="chat-btn call"
+   href="tel:+4794505716"
+   aria-label="Bellen">
+  <img src="phone.png" alt="Ring">
+</a>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" id="lbClose">✕</span>
+  <span class="lb-prev" id="lbPrev">❮</span>
+  <img id="lbImage">
+  <span class="lb-next" id="lbNext">❯</span>
+</div>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(q=>{
+  q.onclick=()=>q.parentElement.classList.toggle('open');
+});
+
+const READY_TEMP=70, WARM_TEMP=40, MAX_AGE_MIN=15;
+
+function updateSauna(){
+ fetch(`badstua.json?ts=${Date.now()}`)
+  .then(r=>r.json())
+  .then(d=>{
+    const t=d.temperature, h=d.humidity;
+    const u=new Date(d.updated);
+    const age=(Date.now()-u)/60000;
+
+    const state=document.getElementById('saunaState');
+    const values=document.getElementById('saunaValues');
+    const upd=document.getElementById('updated');
+
+    let txt,icon,cls;
+    if(t>=READY_TEMP){txt="Badstuen er på tempratur nå :";icon="🔥";cls="sauna-ready";}
+    else if(t>=WARM_TEMP){txt="Badstuen varmes opp nå :";icon="🟡";cls="sauna-warm";}
+    else{txt="Badstuen er kald nå :";icon="❄️";cls="sauna-cold";}
+
+    state.textContent=txt;
+    state.className=`sauna-state ${cls}`;
+    values.innerHTML=`${icon} ${t.toFixed(1).replace('.',',')} °C – 💧 ${h} % luftfuktighet`;
+    upd.textContent=`Sist oppdatert: ${u.toLocaleString('no-NO')}`;
+
+    if(age>MAX_AGE_MIN){
+      state.textContent="⚠️ Data er eldre enn 15 minutter";
+      values.textContent="";
+    }
+  });
+}
+
+updateSauna();
+setInterval(updateSauna,300000);
+
+document.addEventListener('DOMContentLoaded',()=>{
+ const imgs=[...document.querySelectorAll('.gallery img')];
+ const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImage');
+ let i=0;
+ function show(n){i=(n+imgs.length)%imgs.length;lbImg.src=imgs[i].src;}
+ imgs.forEach((img,idx)=>img.onclick=()=>{show(idx);lb.classList.add('open');});
+ lbClose.onclick=()=>lb.classList.remove('open');
+ lbPrev.onclick=()=>show(i-1);
+ lbNext.onclick=()=>show(i+1);
+ lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open');};
+ document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');
+  if(e.key==='ArrowRight')show(i+1);
+  if(e.key==='ArrowLeft')show(i-1);
+ });
+ let startX=0;
+ lb.addEventListener('touchstart',e=>startX=e.changedTouches[0].screenX,{passive:true});
+ lb.addEventListener('touchend',e=>{
+  const d=e.changedTouches[0].screenX-startX;
+  if(Math.abs(d)>50) d<0?show(i+1):show(i-1);
+ });
+});
+
+/* ================================
+   🚧 MAINTENANCE POPUP – 
+   ================================ */
+
+const MAINTENANCE_MODE = true; // true = popup AAN, false = UIT
+
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('maintenanceModal');
+  const closeBtn = document.getElementById('maintenanceClose');
+
+  if (MAINTENANCE_MODE) {
+    modal.classList.add('open');
+  }
+
+  closeBtn.onclick = () => {
+    modal.classList.remove('open');
+  };
+
+  modal.onclick = e => {
+    if (e.target === modal) {
+      modal.classList.remove('open');
+    }
+  };
+});
+  
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('sms-form');
+  const success = document.getElementById('form-success');
+  const fields = document.getElementById('form-fields');
+
+  if (!form) return; // veiligheid
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(res => {
+      if (res.ok) {
+        fields.style.display = 'none';
+        success.style.display = 'block';
+        form.reset();
+      } else {
+        alert('Noe gikk galt. Prøv igjen.');
+      }
+    })
+    .catch(() => {
+      alert('Nettverksfeil. Prøv senere.');
+    });
+  });
+});
+</script>
+
+</body>
+</html>
