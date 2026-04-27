@@ -840,6 +840,17 @@ All relevant informasjon vil bli sendt via SMS med påmelding. Vennligst les mel
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+});
+</script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('sms-form');
   const success = document.getElementById('form-success');
   const fields = document.getElementById('form-fields');
