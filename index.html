@@ -413,28 +413,36 @@ når påmelding åpener.
         Finner du ikke svar her, kan du kontakte oss via skjemaet nedenfor.
       </p>
 
-      <form action="https://formspree.io/f/xlgakdjv" method="POST">
-        <label>
-          Navn<br>
-          <input type="text" name="navn" required>
-        </label><br><br>
+      
+<form id="faq-form"
+      action="https://formspree.io/f/xlgakdjv"
+      method="POST">
 
-        <label>
-          E‑post<br>
-          <input type="email" name="email" required>
-        </label><br><br>
+  <div id="faq-form-fields">
+    <label>
+      Navn<br>
+      <input type="text" name="navn" required>
+    </label><br><br>
 
-        <label>
-          Spørsmål<br>
-          <textarea name="sporsmal" rows="5" required></textarea>
-        </label><br><br>
+    <label>
+      E‑post<br>
+      <input type="email" name="email" required>
+    </label><br><br>
 
-        <button type="submit">Send</button>
+    <label>
+      Spørsmål<br>
+      <textarea name="sporsmal" rows="5" required></textarea>
+    </label><br><br>
 
-        <div id="faq-confirmation-message" style="display:none;">
-          ✅ Takk for henvendelsen. Vi tar kontakt.
-        </div>
-      </form>
+    <button type="submit">Send</button>
+  </div>
+
+  <div id="faq-confirmation-message" style="display:none;">
+    ✅ Takk for henvendelsen. Vi tar kontakt.
+  </div>
+</form>
+
+      
     </div>
   </div>
 </div>
