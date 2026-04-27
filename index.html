@@ -405,12 +405,6 @@ footer {
   display: block;
 }
 
-.faq-form-answer input,
-.faq-form-answer textarea {
-  width: 100%;
-  box-sizing: border-box;
-}
-  
 </style>
 <script type="application/ld+json">
 {
@@ -742,12 +736,14 @@ når påmelding åpener.
     </div>
   </div>
 
-  <div class="faq-item">
-    <div class="faq-answer faq-form-answer">
-    ❓ Andere spørsmål?
-   <span>＋</span>
-    </div>
-    <div class="faq-answer faq-form-answer">
+
+<div class="faq-item">
+  <div class="faq-question">
+    ❓ Andre spørsmål?
+    <span>＋</span>
+  </div>
+  <div class="faq-answer faq-form-answer"
+
 <form
   action="https://formspree.io/f/xlgakdjv" 
   method="POST" 
@@ -783,33 +779,9 @@ når påmelding åpener.
   </div>
 </form>
 
-<script>
-function handleSubmit(event) {
-  event.preventDefault();
-  const form = event.target;
-
-  const fields = form.querySelector('#faq-form-fields');
-  const confirmation = form.querySelector('#confirmation-message-faq');
-
-  fetch(form.action, {
-    method: form.method,
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  }).then(response => {
-    if (response.ok) {
-      fields.style.display = 'none';
-      confirmation.style.display = 'block';
-      form.reset();
-    } else {
-      alert('Noe gikk galt. Vennligst prøv igjen senere.');
-    }
-  }).catch(() => {
-    alert('Nettverksfeil. Sjekk internettforbindelsen.');
-  });
-}
-</script>
-   </div>
+    <form ...>...</form>
   </div>
+</div>
   
    <div class="faq-item">
     <div class="faq-question">
@@ -891,5 +863,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+  <script>
+function handleSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+
+  const fields = form.querySelector('#form-fields');
+  const confirmation = form.querySelector('#confirmation-message');
+
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      fields.style.display = 'none';
+      confirmation.style.display = 'block';
+      form.reset();
+    } else {
+      alert('Noe gikk galt. Vennligst prøv igjen senere.');
+    }
+  })
+  .catch(() => {
+    alert('Nettverksfeil. Sjekk internettforbindelsen.');
+  });
+}
+</script>
 </body>
 </html>
