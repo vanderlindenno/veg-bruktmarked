@@ -515,38 +515,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const faqForm = document.getElementById("faq-form");
-  if (!faqForm) return;
+  const form = document.getElementById("faq-form");
+  if (!form) return;
 
-  const fields = document.getElementById("faq-form-fields");
   const intro = document.getElementById("faq-form-intro");
+  const fields = document.getElementById("faq-form-fields");
   const confirmation = document.getElementById("faq-confirmation-message");
 
-  faqForm.addEventListener("submit", (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    fetch(faqForm.action, {
+    fetch(form.action, {
       method: "POST",
-      body: new FormData(faqForm),
-      headers: { "Accept": "application/json" }
+      body: new FormData(form),
+      headers: { Accept: "application/json" }
     })
-    .then(res => {
-      if (res.ok) {
-        if (fields) fields.style.display = "none";
-        if (intro) intro.style.display = "none";
-        confirmation.style.display = "block";
-        faqForm.reset();
-      } else {
-        alert("Noe gikk galt. Prøv igjen.");
-      }
+    .then(response => {
+      if (!response.ok) throw new Error();
+
+      // ✅ verberg introductietekst
+      if (intro) intro.style.display = "none";
+
+      // ✅ verberg formulier
+      if (fields) fields.style.display = "none";
+
+      // ✅ toon bevestiging
+      confirmation.style.display = "block";
+
+      form.reset();
     })
     .catch(() => {
-      alert("Nettverksfeil. Prøv senere.");
+      alert("Noe gikk galt. Prøv igjen.");
     });
   });
 });
 </script>
-``
   
 </body>
 </html>
