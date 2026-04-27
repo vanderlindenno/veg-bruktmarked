@@ -866,32 +866,30 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-  function handleSubmit(event) {
-    event.preventDefault(); // stopt herladen van pagina
+document.getElementById("faq-form").addEventListener("submit", function (e) {
+  e.preventDefault(); // blokkeert elke vorm van reload
 
-    const form = event.target;
+  const form = e.target;
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: {
-        "Accept": "application/json"
-      }
-    })
-    .then(response => {
-      // VERBERG tekst + velden
-      document.getElementById("faq-form-intro").style.display = "none";
-      document.getElementById("faq-form-fields").style.display = "none";
+  fetch("https://formspree.io/f/xlgakdjv", {
+    method: "POST",
+    body: new FormData(form),
+    headers: { "Accept": "application/json" }
+  })
+  .then(() => {
+    // ALTIJD verbergen
+    document.getElementById("faq-form-intro").style.display = "none";
+    document.getElementById("faq-form-fields").style.display = "none";
 
-      // TOON bevestiging
-      document.getElementById("faq-confirmation-message").style.display = "block";
-    })
-    .catch(error => {
-      alert("Noe gikk galt. Vennligst prøv igjen.");
-    });
+    // Alleen bevestiging tonen
+    document.getElementById("faq-confirmation-message").style.display = "block";
+  })
+  .catch(() => {
+    alert("Noe gikk galt. Vennligst prøv igjen.");
+  });
 
-    return false; // extra zekerheid
-  }
+  return false;
+});
 </script>
   
 </body>
