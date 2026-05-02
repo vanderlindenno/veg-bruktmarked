@@ -464,31 +464,48 @@ footer {
   }
 }
 
+/* =========================
+   COUNTDOWN – NESTE BRUKTMARKED
+   ========================= */
+
+/* Label boven de countdown */
+.countdown-label {
+  margin-top: .4rem;
+  margin-bottom: .75rem;
+  font-size: .85rem;
+  font-weight: 500;
+  color: #4b5563; /* subtiel blauwgrijs */
+}
+
 /* Countdown balk */
 .countdown-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #6f8fa3; /* blauwgrijs */
+  background: var(--primary); /* ✅ zelfde blauw als header & titel */
   margin-top: 1rem;
 }
 
+/* Eén vak */
 .countdown-bar .cd-unit {
   text-align: center;
   padding: 1.2rem 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .countdown-bar .cd-unit:last-child {
   border-right: none;
 }
 
+/* Grote cijfers */
 .countdown-bar .cd-value {
+  display: block;
   font-size: 2.2rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.1;
 }
 
+/* Labels (DAGER / TIMER / …) */
 .countdown-bar .cd-label {
   display: block;
   margin-top: .3rem;
@@ -497,13 +514,4 @@ footer {
   letter-spacing: .05em;
   color: #ffffff;
   text-transform: uppercase;
-}
-
-/* Label boven de countdown */
-.countdown-label {
-  margin-top: .4rem;
-  margin-bottom: .75rem;
-  font-size: .85rem;
-  font-weight: 500;
-  color: #4b5563;
 }
