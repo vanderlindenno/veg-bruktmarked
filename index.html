@@ -133,25 +133,18 @@
 
 <div class="card">
   <h2>📅 Neste bruktmarked</h2>
-  <p><strong>lørdag 24. oktober 2026</strong></p>
-  <div class="countdown" id="countdown">
-  <div class="countdown-item">
-    <span class="count-number" id="cd-days">0</span>
-    <span class="count-label">Dager</span>
-  </div>
-  <div class="countdown-item">
-    <span class="count-number" id="cd-hours">0</span>
-    <span class="count-label">Timer</span>
-  </div>
-  <div class="countdown-item">
-    <span class="count-number" id="cd-minutes">0</span>
-    <span class="count-label">Min</span>
-  </div>
-  <div class="countdown-item">
-    <span class="count-number" id="cd-seconds">0</span>
-    <span class="count-label">Sek</span>
-  </div>
-</div>
+
+  <p>
+    <strong>
+      <time id="next-market-date"
+            datetime="2026-10-24T10:00">
+        lørdag 24. oktober 2026 kl. 10.00
+      </time>
+    </strong>
+  </p>
+
+  <!-- Countdown wordt hier automatisch gevuld -->
+  <div class="countdown sleek" aria-live="polite"></div>
 </div>
 
 <div class="card">
@@ -643,39 +636,55 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-  const targetDate = new Date("2026-10-24T10:00:00");
+  const timeEl = document.getElementById("next-market-date");
+  const countdownEl = document.querySelector(".countdown.sleek");
 
-  const d = document.getElementById("cd-days");
-  const h = document.getElementById("cd-hours");
-  const m = document.getElementById("cd-minutes");
-  const s = document.getElementById("cd-seconds");
+  if (!timeEl || !countdownEl) return;
+
+  const targetDate = new Date(timeEl.getAttribute("datetime"));
+
+  function renderUnit(value, label) {
+    return `
+      <div class="unit">
+        <div class="value">${value}</div>
+        <div class="label">${label}</div>
+      </div>
+    `;
+  }
 
   function updateCountdown() {
     const now = new Date();
     const diff = targetDate - now;
 
     if (diff <= 0) {
-      d.textContent = h.textContent = m.textContent = s.textContent = "0";
+      countdownEl.innerHTML = `
+        <div class="unit" style="grid-column:1/-1">
+          <div class="value">🎉</div>
+          <div class="label">Bruktmarkedet er i gang</div>
+        </div>
+      `;
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff / 3600000) % 24);
+    const minutes = Math.floor((diff / 60000) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    d.textContent = days;
-    h.textContent = hours;
-    m.textContent = minutes;
-    s.textContent = seconds;
+    countdownEl.innerHTML =
+      renderUnit(days, "Dager") +
+      renderUnit(hours, "Timer") +
+      renderUnit(minutes, "Min") +
+      renderUnit(seconds, "Sek");
   }
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
 });
 </script>
+
 
 </body>
 </html>
