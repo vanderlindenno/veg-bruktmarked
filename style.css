@@ -463,41 +463,39 @@ footer {
     font-size: 32px;
   }
 }
-.countdown {
+
+.countdown.sleek {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: #cfd8b6;
-  border-radius: 12px;
-  overflow: hidden;
+  gap: .75rem;
   margin-top: 1rem;
 }
 
-.countdown-item {
-  background: #a9b98a;
+.countdown.sleek .unit {
+  background: linear-gradient(180deg, #aab88b, #9eaf7e);
+  border-radius: 14px;
+  padding: .9rem .5rem;
   text-align: center;
-  padding: 1rem .5rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
 }
 
-.count-number {
-  display: block;
-  font-size: 2.2rem;
+.countdown.sleek .value {
+  font-size: 2.1rem;
   font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+  color: #fff;
+  line-height: 1;
 }
 
-.count-label {
-  display: block;
-  font-size: .85rem;
-  letter-spacing: .08em;
-  color: #ffffff;
-  margin-top: .3rem;
+.countdown.sleek .label {
+  font-size: .75rem;
+  letter-spacing: .1em;
   text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  margin-top: .35rem;
 }
 
 @media (max-width: 480px) {
-  .count-number {
+  .countdown.sleek .value {
     font-size: 1.6rem;
   }
 }
