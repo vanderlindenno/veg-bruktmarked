@@ -646,41 +646,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeEl = document.getElementById("next-market-date");
   const countdownEl = document.getElementById("countdown");
 
-  console.log("Countdown init", timeEl, countdownEl);
-
   if (!timeEl || !countdownEl) return;
 
   const targetDate = new Date(timeEl.getAttribute("datetime"));
 
-  function update() {
+  function updateCountdown() {
     const now = new Date();
     const diff = targetDate - now;
 
+    // ✅ VERBERGEN als datum verlopen is
     if (diff <= 0) {
-      countdownEl.innerHTML = `
-        <div class="cd-unit" style="grid-column:1/-1">
-          <span class="cd-value">🎉</span>
-          <span class="cd-label">Bruktmarkedet er i gang</span>
-        </div>
-      `;
+      countdownEl.style.display = "none";
       return;
     }
 
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    const s = Math.floor((diff / 1000) % 60);
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff / 3600000) % 24);
+    const minutes = Math.floor((diff / 60000) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
     countdownEl.innerHTML = `
-      <div class="cd-unit"><span class="cd-value">${d}</span><span class="cd-label">Dager</span></div>
-      <div class="cd-unit"><span class="cd-value">${h}</span><span class="cd-label">Timer</span></div>
-      <div class="cd-unit"><span class="cd-value">${m}</span><span class="cd-label">Min</span></div>
-      <div class="cd-unit"><span class="cd-value">${s}</span><span class="cd-label">Sek</span></div>
+      <div class="cd-unit">
+        <span class="cd-value">${days}</span>
+        <span class="cd-label">Dager</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-value">${hours}</span>
+        <span class="cd-label">Timer</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-value">${minutes}</span>
+        <span class="cd-label">Min</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-value">${seconds}</span>
+        <span class="cd-label">Sek</span>
+      </div>
     `;
   }
 
-  update();
-  setInterval(update, 1000);
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 });
 </script>
 
