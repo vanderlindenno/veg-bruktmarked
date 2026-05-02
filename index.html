@@ -134,6 +134,24 @@
 <div class="card">
   <h2>📅 Neste bruktmarked</h2>
   <p><strong>lørdag 24. oktober 2026</strong></p>
+  <div class="countdown" id="countdown">
+  <div class="countdown-item">
+    <span class="count-number" id="cd-days">0</span>
+    <span class="count-label">Dager</span>
+  </div>
+  <div class="countdown-item">
+    <span class="count-number" id="cd-hours">0</span>
+    <span class="count-label">Timer</span>
+  </div>
+  <div class="countdown-item">
+    <span class="count-number" id="cd-minutes">0</span>
+    <span class="count-label">Min</span>
+  </div>
+  <div class="countdown-item">
+    <span class="count-number" id="cd-seconds">0</span>
+    <span class="count-label">Sek</span>
+  </div>
+</div>
 </div>
 
 <div class="card">
@@ -624,5 +642,40 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const targetDate = new Date("2026-10-24T10:00:00");
+
+  const d = document.getElementById("cd-days");
+  const h = document.getElementById("cd-hours");
+  const m = document.getElementById("cd-minutes");
+  const s = document.getElementById("cd-seconds");
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      d.textContent = h.textContent = m.textContent = s.textContent = "0";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    d.textContent = days;
+    h.textContent = hours;
+    m.textContent = minutes;
+    s.textContent = seconds;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+});
+</script>
+
 </body>
 </html>
