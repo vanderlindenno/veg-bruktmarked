@@ -525,15 +525,12 @@ footer {
 
 /* Datum van het volgende bruktmarked */
 
+
 .event-date {
   font-size: 1.35rem;
   font-weight: 600;
-  color: #111827;
-  margin: .5rem 0 .8rem;
-}
-
-.event-date {
   color: var(--primary);
+  margin: .5rem 0 .8rem;
 }
 
 
