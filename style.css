@@ -498,3 +498,12 @@ footer {
   color: #ffffff;
   text-transform: uppercase;
 }
+
+
+.countdown-label {
+  margin: .6rem 0 .4rem;
+  font-size: .9rem;
+  color: #555;
+  font-weight: 500;
+}
+
