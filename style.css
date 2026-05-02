@@ -468,10 +468,17 @@ footer {
    COUNTDOWN – NESTE BRUKTMARKED
    ========================= */
 
+/* Datum van het volgende bruktmarked */
+.event-date {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: .6rem 0 .9rem; /* iets meer lucht */
+}
+
 /* Label boven de countdown */
 .countdown-label {
-  margin-top: .4rem;
-  margin-bottom: .75rem;
+  margin-bottom: .85rem;
   font-size: .85rem;
   font-weight: 500;
   color: #4b5563; /* subtiel blauwgrijs */
@@ -481,8 +488,9 @@ footer {
 .countdown-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--primary); /* ✅ zelfde blauw als header & titel */
-  margin-top: 1rem;
+  background: var(--primary);        /* zelfde blauw als header & titel */
+  border-radius: 12px;
+  overflow: hidden;                  /* hoeken netjes afronden */
 }
 
 /* Eén vak */
@@ -496,12 +504,6 @@ footer {
   border-right: none;
 }
 
-.countdown-bar {
-  border-radius: 12px;
-  overflow: hidden; /* 🔑 nodig zodat binnenvakken ook rond afsnijden */
-}
-
-
 /* Grote cijfers */
 .countdown-bar .cd-value {
   display: block;
@@ -511,26 +513,13 @@ footer {
   line-height: 1.1;
 }
 
-/* Labels (DAGER / TIMER / …) */
+/* Labels (DAGER / TIMER / MIN / SEK) */
 .countdown-bar .cd-label {
   display: block;
-  margin-top: .3rem;
-  font-size: .9rem;
+  margin-top: .35rem;
+  font-size: .85rem;        /* iets rustiger */
   font-weight: 600;
-  letter-spacing: .05em;
-  color: #ffffff;
+  letter-spacing: .08em;    /* net iets meer lucht */
   text-transform: uppercase;
+  color: #ffffff;
 }
-
-
-/* Datum van het volgende bruktmarked */
-
-
-.event-date {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin: .5rem 0 .8rem;
-}
-
-
