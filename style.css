@@ -464,10 +464,11 @@ footer {
   }
 }
 
+/* Countdown balk */
 .countdown-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #6f8fa3; /* blauwgroen – past bij tekst */
+  background: #6f8fa3; /* blauwgrijs */
   margin-top: 1rem;
 }
 
@@ -482,8 +483,7 @@ footer {
 }
 
 .countdown-bar .cd-value {
-  display: block;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.1;
@@ -499,23 +499,11 @@ footer {
   text-transform: uppercase;
 }
 
-
-
-
+/* Label boven de countdown */
 .countdown-label {
-  margin: .8rem 0 .5rem;
-  font-size: .85rem;
-  color: #475569;   /* koel blauwgrijs */
-  font-weight: 500;
-}
-
-.countdown-label {
+  margin-top: .4rem;
   margin-bottom: .75rem;
+  font-size: .85rem;
+  font-weight: 500;
+  color: #4b5563;
 }
-
-.countdown-label {
-  padding-top: .4rem;
-}
-
-
-
