@@ -521,3 +521,13 @@ footer {
   color: #ffffff;
   text-transform: uppercase;
 }
+
+
+/* Datum van het volgende bruktmarked */
+.event-date {
+  font-size: 1.25rem;   /* duidelijk groter dan normale tekst */
+  font-weight: 600;     /* iets zwaarder */
+  color: #111827;       /* bijna zwart, goed contrast */
+  margin: .4rem 0 .6rem;
+}
+
