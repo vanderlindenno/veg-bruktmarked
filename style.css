@@ -463,3 +463,41 @@ footer {
     font-size: 32px;
   }
 }
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #cfd8b6;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.countdown-item {
+  background: #a9b98a;
+  text-align: center;
+  padding: 1rem .5rem;
+}
+
+.count-number {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.count-label {
+  display: block;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  color: #ffffff;
+  margin-top: .3rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .count-number {
+    font-size: 1.6rem;
+  }
+}
