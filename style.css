@@ -501,11 +501,21 @@ footer {
 
 
 
+
 .countdown-label {
-  margin: .6rem 0 .4rem;
-  font-size: .9rem;
-  color: var(--primary);
-  font-weight: 600;
+  margin: .8rem 0 .5rem;
+  font-size: .85rem;
+  color: #475569;   /* koel blauwgrijs */
+  font-weight: 500;
 }
+
+.countdown-label {
+  margin-bottom: .75rem;
+}
+
+.countdown-label {
+  padding-top: .4rem;
+}
+
 
 
