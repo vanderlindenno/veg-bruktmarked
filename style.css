@@ -467,14 +467,14 @@ footer {
 .countdown-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #a7b888; /* hoofdgroen */
+  background: #6f8fa3; /* blauwgroen – past bij tekst */
   margin-top: 1rem;
 }
 
 .countdown-bar .cd-unit {
   text-align: center;
   padding: 1.2rem 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .countdown-bar .cd-unit:last-child {
