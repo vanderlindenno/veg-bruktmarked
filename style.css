@@ -496,6 +496,12 @@ footer {
   border-right: none;
 }
 
+.countdown-bar {
+  border-radius: 12px;
+  overflow: hidden; /* 🔑 nodig zodat binnenvakken ook rond afsnijden */
+}
+
+
 /* Grote cijfers */
 .countdown-bar .cd-value {
   display: block;
