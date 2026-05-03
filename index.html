@@ -153,6 +153,66 @@
   </div>
 </div>
 
+  
+<div class="card">
+  <h2>📲 SMS‑påminnelse før bruktmarkedet</h2>
+
+  <p>
+    Ønsker du en SMS‑påminnelse 10 dager før neste bruktmarked?
+    Meld deg på her, så sender vi deg en kort påminnelse i forkant.
+  </p>
+
+  <div id="sms-reminder-success"
+       style="display:none; color:green; font-weight:600;">
+    ✅ Takk! Du vil motta en SMS‑påminnelse 10 dager før bruktmarkedet.
+  </div>
+
+  <form id="sms-reminder-form"
+        action="https://formspree.io/f/xojrjlzl"
+        method="POST">
+
+    <div id="sms-reminder-fields">
+
+      <label for="reminder-name"><strong>Navn</strong></label><br>
+      <input
+        type="text"
+        id="reminder-name"
+        name="navn"
+        required
+        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
+      >
+
+      <label for="reminder-phone"><strong>Telefonnummer</strong></label><br>
+      <input
+        type="tel"
+        id="reminder-phone"
+        name="telefon"
+        required
+        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
+      >
+
+      <input type="hidden"
+             name="_subject"
+             value="Ny SMS‑påminnelse – Bruktmarked Vegårshei">
+
+      <input type="text"
+             name="_gotcha"
+             style="display:none">
+
+      <button type="submit"
+              style="
+                background:var(--primary);
+                color:#fff;
+                border:none;
+                padding:.6rem 1.4rem;
+                border-radius:8px;
+                cursor:pointer;">
+        Meld meg på
+      </button>
+
+    </div>
+  </form>
+</div> 
 
 <div class="card">
   <h2>🖼️ Bilder</h2>
@@ -292,67 +352,6 @@ Nedenfor kan du melde deg på for å motta SMS når påmelding åpener.
     </div>
   </form>
 </div>
-
-<div class="card">
-  <h2>📲 SMS‑påminnelse før bruktmarkedet</h2>
-
-  <p>
-    Ønsker du en SMS‑påminnelse 10 dager før neste bruktmarked?
-    Meld deg på her, så sender vi deg en kort påminnelse i forkant.
-  </p>
-
-  <div id="sms-reminder-success"
-       style="display:none; color:green; font-weight:600;">
-    ✅ Takk! Du vil motta en SMS‑påminnelse 10 dager før bruktmarkedet.
-  </div>
-
-  <form id="sms-reminder-form"
-        action="https://formspree.io/f/xojrjlzl"
-        method="POST">
-
-    <div id="sms-reminder-fields">
-
-      <label for="reminder-name"><strong>Navn</strong></label><br>
-      <input
-        type="text"
-        id="reminder-name"
-        name="navn"
-        required
-        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
-      >
-
-      <label for="reminder-phone"><strong>Telefonnummer</strong></label><br>
-      <input
-        type="tel"
-        id="reminder-phone"
-        name="telefon"
-        required
-        style="width:100%;padding:.5rem;margin:.3rem 0 1rem;"
-      >
-
-      <input type="hidden"
-             name="_subject"
-             value="Ny SMS‑påminnelse – Bruktmarked Vegårshei">
-
-      <input type="text"
-             name="_gotcha"
-             style="display:none">
-
-      <button type="submit"
-              style="
-                background:var(--primary);
-                color:#fff;
-                border:none;
-                padding:.6rem 1.4rem;
-                border-radius:8px;
-                cursor:pointer;">
-        Meld meg på
-      </button>
-
-    </div>
-  </form>
-</div>
-
 
 <div class="card">
   <h2>📍 Lokasjon</h2>
