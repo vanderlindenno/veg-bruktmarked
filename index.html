@@ -711,20 +711,34 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const timeEl = document.getElementById("next-market-date");
   const countdownEl = document.getElementById("countdown");
-
   if (!timeEl || !countdownEl) return;
 
-  const targetDate = new Date(timeEl.getAttribute("datetime"));
+  // Markedsdatoer i kronologisk rekkefølge. Når en dato er passert,
+  // vises automatisk neste dato på listen.
+  const marketDates = [
+    { datetime: "2026-10-24T10:00:00", label: "lørdag 24. oktober 2026" },
+    { datetime: "2027-04-24T10:00:00", label: "lørdag 24. april 2027" },
+    { datetime: "2027-10-30T10:00:00", label: "lørdag 30. oktober 2027" }
+  ];
+
+  function getNextMarket() {
+    const now = new Date();
+    // Finn neste markedsdato som ikke har passert.
+    return marketDates.find(market => new Date(market.datetime).getTime() > now.getTime())
+      || marketDates[marketDates.length - 1];
+  }
 
   function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate - now;
+    const market = getNextMarket();
+    timeEl.setAttribute("datetime", market.datetime);
+    timeEl.textContent = market.label;
 
-    // ✅ VERBERGEN als datum verlopen is
+    const diff = new Date(market.datetime).getTime() - Date.now();
     if (diff <= 0) {
       countdownEl.style.display = "none";
       return;
     }
+    countdownEl.style.display = "";
 
     const days = Math.floor(diff / 86400000);
     const hours = Math.floor((diff / 3600000) % 24);
@@ -732,22 +746,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const seconds = Math.floor((diff / 1000) % 60);
 
     countdownEl.innerHTML = `
-      <div class="cd-unit">
-        <span class="cd-value">${days}</span>
-        <span class="cd-label">Dager</span>
-      </div>
-      <div class="cd-unit">
-        <span class="cd-value">${hours}</span>
-        <span class="cd-label">Timer</span>
-      </div>
-      <div class="cd-unit">
-        <span class="cd-value">${minutes}</span>
-        <span class="cd-label">Min</span>
-      </div>
-      <div class="cd-unit">
-        <span class="cd-value">${seconds}</span>
-        <span class="cd-label">Sek</span>
-      </div>
+      <div class="cd-unit"><span class="cd-value">${days}</span><span class="cd-label">Dager</span></div>
+      <div class="cd-unit"><span class="cd-value">${hours}</span><span class="cd-label">Timer</span></div>
+      <div class="cd-unit"><span class="cd-value">${minutes}</span><span class="cd-label">Min</span></div>
+      <div class="cd-unit"><span class="cd-value">${seconds}</span><span class="cd-label">Sek</span></div>
     `;
   }
 
