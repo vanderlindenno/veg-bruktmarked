@@ -1,6 +1,6 @@
 :root{
   --primary:#1e3a8a;
-  --bg:#FFFF00;
+  --bg:#FFC900;
   --card:#ffffff;
 }
 
@@ -15,7 +15,7 @@ body{
 
 header{
   background:var(--primary);
-  color:#FFFF00;
+  color:#FFC900;
   text-align:center;
   padding:2.5rem 1rem;
 }
