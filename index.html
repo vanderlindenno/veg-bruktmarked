@@ -15,6 +15,68 @@
 <link rel="manifest" href="/site.webmanifest">  
 <link rel="stylesheet" href="style.css">
 
+<style>
+/* Compact, responsive header: logo without a white square beside the title */
+.site-header {
+  padding: 18px 20px !important;
+  box-sizing: border-box;
+}
+.site-header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 2.5vw, 30px);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+.site-header .site-logo {
+  display: block;
+  width: clamp(112px, 12vw, 142px);
+  height: auto;
+  max-height: 142px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  background: transparent;
+}
+.site-header .header-text {
+  min-width: 0;
+  text-align: left;
+}
+.site-header .header-text h1 {
+  margin: 0 0 10px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+.site-header .header-text p {
+  margin: 0;
+  line-height: 1.45;
+}
+@media (max-width: 560px) {
+  .site-header {
+    padding: 16px 14px !important;
+  }
+  .site-header .header-content {
+    justify-content: flex-start;
+    gap: 13px;
+  }
+  .site-header .site-logo {
+    width: clamp(82px, 23vw, 108px);
+    max-height: 108px;
+  }
+  .site-header .header-text h1 {
+    font-size: clamp(1.15rem, 4.8vw, 1.55rem);
+    line-height: 1.12;
+    margin-bottom: 7px;
+  }
+  .site-header .header-text p {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -115,9 +177,14 @@
 
 <body>
 
-<header>
-  <h1>Bruktmarked på Vegårshei</h1>
-  <p>Brukte varer, nye muligheter</p>
+<header class="site-header">
+  <div class="header-content">
+    <img class="site-logo" src="logo-transparent.png" alt="Bruktmarked Vegårshei – kjøp, salg og gjenbruk">
+    <div class="header-text">
+      <h1>Bruktmarked på Vegårshei</h1>
+      <p>Brukte varer, nye muligheter</p>
+    </div>
+  </div>
 </header>
 
 <main>
